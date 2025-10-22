@@ -1,0 +1,9 @@
+{
+    "PHP Basic Template": {
+        "prefix": "phps",
+        "body": [
+            "<?php $1 ?>"
+        ],
+        "description": "Basic PHP boilerplate with includes and session start"
+    }
+}
