@@ -1,7 +1,16 @@
 <?php
-  require_once "./Function/function.php";
+  require_once "../Function/function.php";
+
+  
+  $id = $_GET['v'];
+  $sel = "SELECT * FROM users WHERE user_id='$id'";
+  $QR = mysqli_query($connect, $sel);
+  $info = mysqli_fetch_array($QR);
+
+
   get_header();
   get_sidebar();
+
 ?>
     
                     <div class="row">
@@ -13,7 +22,7 @@
                                         <i class="fab fa-gg-circle"></i>View User Information
                                     </div>  
                                     <div class="col-md-4 card_button_part">
-                                        <a href="all-user.html" class="btn btn-sm btn-dark"><i class="fas fa-th"></i>All User</a>
+                                        <a href="all-user.php" class="btn btn-sm btn-dark"><i class="fas fa-th"></i>All User</a>
                                     </div>  
                                 </div>
                               </div>
@@ -25,22 +34,22 @@
                                           <tr>
                                             <td>Name</td>  
                                             <td>:</td>  
-                                            <td>Rasel Islam</td>  
+                                            <td><?php echo $info['user_name']; ?></td>  
                                           </tr>
                                           <tr>
                                             <td>Phone</td>  
                                             <td>:</td>  
-                                            <td>01757220125</td>  
+                                            <td><?php echo $info['user_phone']; ?></td>  
                                           </tr>
                                           <tr>
                                             <td>Email</td>  
                                             <td>:</td>  
-                                            <td>uylab.rasel@gmail.com</td>  
+                                            <td><?php echo $info['user_email']; ?></td>
                                           </tr>
                                           <tr>
-                                            <td>Username</td>  
+                                            <td>Username</td>
                                             <td>:</td>  
-                                            <td>raseldevs</td>  
+                                            <td><?php echo $info['username']; ?></td>  
                                           </tr>
                                           <tr>
                                             <td>Role</td>  

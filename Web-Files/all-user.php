@@ -54,11 +54,11 @@
                     <td><?php echo $data['username']    ?></td>
                     <td>---</td>
                     <td>
-                        <div class="btn-group" role="group">
-                          <button type="button" class="btn btn-sm btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Manage</button>
+                        <div class="dropdown-group" role="group">
+                          <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Manage</button>
                           <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="view-user.html">View</a></li>
-                            <li><a class="dropdown-item" href="edit-user.html">Edit</a></li>
+                            <li><a class="dropdown-item" href="view-user.php?v=<?php echo $data['user_id']; ?>">View</a></li>
+                            <li><a class="dropdown-item" href="edit-user.php">Edit</a></li>
                             <li><a class="dropdown-item" href="delete.php?d=<?php echo $data['user_id']; ?>">Delete</a></li>
                           </ul>
                         </div>
