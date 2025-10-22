@@ -1,5 +1,5 @@
 <?php 
-  require_once "./Function/function.php";
+  require_once "../Function/function.php";
 
   if( !empty($_POST)){
     $name = $_POST['name'];

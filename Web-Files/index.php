@@ -1,5 +1,5 @@
 <?php
-  require_once "./Function/function.php";
+  require_once "../Function/function.php";
   
   get_header();
   get_sidebar();
