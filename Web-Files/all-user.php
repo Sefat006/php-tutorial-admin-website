@@ -34,6 +34,7 @@
                     <th>Email</th>
                     <th>Username</th>
                     <th>Role</th>
+                    <th>Image</th>
                     <th>Manage</th>
                   </tr>
                 </thead>
@@ -53,12 +54,13 @@
                     <td><?php echo $data['user_email']    ?></td>
                     <td><?php echo $data['username']    ?></td>
                     <td>---</td>
+                    <td><img height="10" class="img200" src="../Uploads/<?php $data=['user_photo']; ?>" alt=""></td>
                     <td>
                         <div class="dropdown-group" role="group">
                           <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Manage</button>
                           <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="view-user.php?v=<?php echo $data['user_id']; ?>">View</a></li>
-                            <li><a class="dropdown-item" href="edit-user.php">Edit</a></li>
+                            <li><a class="dropdown-item" href="edit-user.php?e=<?php echo $data['user_id']; ?>">Edit</a></li>
                             <li><a class="dropdown-item" href="delete.php?d=<?php echo $data['user_id']; ?>">Delete</a></li>
                           </ul>
                         </div>

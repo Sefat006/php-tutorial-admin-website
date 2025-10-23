@@ -1,12 +1,35 @@
 <?php 
-  require_once "./Function/function.php";
+  require_once "../Function/function.php";
+
+  if (!isset($_GET['e'])) {
+    die("No user selected!");
+}
+
+  $id = $_GET['e'];
+  $sel = "SELECT * FROM users WHERE user_id='$id'";
+  $QR = mysqli_query($connect, $sel);
+  $data = mysqli_fetch_array($QR);
+
+  if(!empty($_POST)){
+    $name = $_POST['name'];
+    $phone = $_POST['phone'];
+    $email = $_POST['email'];
+
+    $update = "UPDATE users SET user_name='$name', user_phone='$phone', user_email='$email' WHERE user_id='$id'";
+
+    if(mysqli_query($connect, $update)){
+      // echo "Update successful";
+      header("Location: all-user.php");
+    }
+  }
+
   get_header();
   get_sidebar();
 ?>
                     </div>
                     <div class="row">
                         <div class="col-md-12 ">
-                            <form method="" action="">
+                            <form method="post" action="">
                                 <div class="card mb-3">
                                   <div class="card-header">
                                     <div class="row">
@@ -14,7 +37,7 @@
                                             <i class="fab fa-gg-circle"></i>Update User Information
                                         </div>  
                                         <div class="col-md-4 card_button_part">
-                                            <a href="all-user.html" class="btn btn-sm btn-dark"><i class="fas fa-th"></i>All User</a>
+                                            <a href="all-user.php" class="btn btn-sm btn-dark"><i class="fas fa-th"></i>All User</a>
                                         </div>  
                                     </div>
                                   </div>
@@ -22,37 +45,19 @@
                                       <div class="row mb-3">
                                         <label class="col-sm-3 col-form-label col_form_label">Name<span class="req_star">*</span>:</label>
                                         <div class="col-sm-7">
-                                          <input type="text" class="form-control form_control" id="" name="">
+                                          <input type="text" class="form-control form_control" id="" name="name" value="<?php echo $data['user_name'] ?>">
                                         </div>
                                       </div>
                                       <div class="row mb-3">
                                         <label class="col-sm-3 col-form-label col_form_label">Phone:</label>
                                         <div class="col-sm-7">
-                                          <input type="text" class="form-control form_control" id="" name="">
+                                          <input type="text" class="form-control form_control" id="" name="phone" value="<?php echo $data['user_phone'] ?>">
                                         </div>
                                       </div>
                                       <div class="row mb-3">
                                         <label class="col-sm-3 col-form-label col_form_label">Email<span class="req_star">*</span>:</label>
                                         <div class="col-sm-7">
-                                          <input type="email" class="form-control form_control" id="" name="">
-                                        </div>
-                                      </div>
-                                      <div class="row mb-3">
-                                        <label class="col-sm-3 col-form-label col_form_label">Username<span class="req_star">*</span>:</label>
-                                        <div class="col-sm-7">
-                                          <input type="text" class="form-control form_control" id="" name="">
-                                        </div>
-                                      </div>
-                                      <div class="row mb-3">
-                                        <label class="col-sm-3 col-form-label col_form_label">Password<span class="req_star">*</span>:</label>
-                                        <div class="col-sm-7">
-                                          <input type="password" class="form-control form_control" id="" name="">
-                                        </div>
-                                      </div>
-                                      <div class="row mb-3">
-                                        <label class="col-sm-3 col-form-label col_form_label">Confirm-Password<span class="req_star">*</span>:</label>
-                                        <div class="col-sm-7">
-                                          <input type="password" class="form-control form_control" id="" name="">
+                                          <input type="email" class="form-control form_control" id="" name="email" value="<?php echo $data['user_email'] ?>">
                                         </div>
                                       </div>
                                       <div class="row mb-3">

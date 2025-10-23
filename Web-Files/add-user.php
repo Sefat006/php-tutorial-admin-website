@@ -8,11 +8,15 @@
     $username = $_POST['username'];
     $password = md5($_POST['password']);
     $confirm_password = md5($_POST['confirm_password']);
+    $photo = $_FILES['photo'];
 
-    $select = "INSERT INTO users (user_name, user_phone, user_email, username, user_pw) VALUES ('$name','$number','$email','$username','$password')";
+    $photoName = 'User_'.time().'_'.rand(60000,94329430).'.'.pathinfo($photo['name'],PATHINFO_EXTENSION);
+
+    $select = "INSERT INTO users (user_name, user_phone, user_email, username, user_pw, user_photo) VALUES ('$name','$number','$email','$username','$password', '$photoName')";
 
     if($password == $confirm_password){
       if(mysqli_query($connect, $select)){
+        move_uploaded_file($photo['tmp_name'], '../Uploads/'.$photoName);
 // for directing to the all-user page after clicking Register Button
         header("Location:all-user.php");
       }
@@ -29,7 +33,7 @@
 ?>
                     <div class="row">
                         <div class="col-md-12 ">
-                            <form method="post" action="">
+                            <form method="post" action="" enctype="multipart/form-data">
                                 <div class="card mb-3">
                                   <div class="card-header">
                                     <div class="row">
