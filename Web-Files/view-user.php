@@ -3,7 +3,7 @@
 
   
   $id = $_GET['v'];
-  $sel = "SELECT * FROM users WHERE user_id='$id'";
+  $sel = "SELECT * FROM users NATURAL JOIN roles WHERE user_id='$id'";
   $QR = mysqli_query($connect, $sel);
   $info = mysqli_fetch_array($QR);
 
@@ -54,13 +54,13 @@
                                           <tr>
                                             <td>Role</td>  
                                             <td>:</td>  
-                                            <td>---</td>  
+                                            <td><?php echo $info['role_name'] ?></td>  
                                           </tr>
                                           <tr>
                                             <td>Photo</td>  
                                             <td>:</td>  
                                             <td>
-                                                <img class="img200" src="images/avatar.jpg" alt=""/>  
+                                                <img class="img200" src="../Uploads/<?php echo $info['user_photo'] ?>" alt=""/>  
                                             </td>  
                                           </tr>
                                         </table>

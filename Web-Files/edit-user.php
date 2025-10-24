@@ -14,8 +14,9 @@
     $name = $_POST['name'];
     $phone = $_POST['phone'];
     $email = $_POST['email'];
+    $role = $_POST['role'];
 
-    $update = "UPDATE users SET user_name='$name', user_phone='$phone', user_email='$email' WHERE user_id='$id'";
+    $update = "UPDATE users SET user_name='$name', user_phone='$phone', user_email='$email', role_id='$role' WHERE user_id='$id'";
 
     if(mysqli_query($connect, $update)){
       // echo "Update successful";
@@ -63,11 +64,29 @@
                                       <div class="row mb-3">
                                         <label class="col-sm-3 col-form-label col_form_label">User Role<span class="req_star">*</span>:</label>
                                         <div class="col-sm-4">
-                                          <select class="form-control form_control" id="" name="">
+
+                                          <select class="form-control form_control" id="" name="role">
                                             <option>Select Role</option>
-                                            <option value="">Superadmin</option>
-                                            <option value="">Admin</option>
+                                            <!-- dynamic use of data/fetch -->
+                                            <?php 
+                                              $sel = "SELECT * FROM roles ORDER BY role_id ASC";
+                                              $QR = mysqli_query($connect, $sel);
+                                              while( $urole=mysqli_fetch_array($QR)){
+                                            ?>
+                                            <option 
+                                            value="<?php echo $urole['role_id'] ?>"
+                                            <?php 
+                                              if($urole['role_id']==$data['role_id']){
+                                                echo 'selected';
+                                              }
+                                            ?>
+                                            >
+                                              <?php echo $urole['role_name'] ?>
+                                            </option>
+                                            <?php } ?>
+                                            <!-- end -->
                                           </select>
+
                                         </div>
                                       </div>
                                       <div class="row mb-3">

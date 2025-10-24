@@ -8,11 +8,12 @@
     $username = $_POST['username'];
     $password = md5($_POST['password']);
     $confirm_password = md5($_POST['confirm_password']);
+    $role = $_POST['role'];
     $photo = $_FILES['photo'];
 
     $photoName = 'User_'.time().'_'.rand(60000,94329430).'.'.pathinfo($photo['name'],PATHINFO_EXTENSION);
 
-    $select = "INSERT INTO users (user_name, user_phone, user_email, username, user_pw, user_photo) VALUES ('$name','$number','$email','$username','$password', '$photoName')";
+    $select = "INSERT INTO users (user_name, user_phone, user_email, username, user_pw, role_id, user_photo) VALUES ('$name','$number','$email','$username','$password', '$role', '$photoName')";
 
     if($password == $confirm_password){
       if(mysqli_query($connect, $select)){
@@ -85,11 +86,20 @@
                                       <div class="row mb-3">
                                         <label class="col-sm-3 col-form-label col_form_label">User Role<span class="req_star">*</span>:</label>
                                         <div class="col-sm-4">
+
                                           <select class="form-control form_control" id="" name="role">
                                             <option>Select Role</option>
-                                            <option value="">Superadmin</option>
-                                            <option value="">Admin</option>
+                                            <!-- dynamic use of data/fetch -->
+                                            <?php 
+                                              $sel = "SELECT * FROM roles ORDER BY role_id ASC";
+                                              $QR = mysqli_query($connect, $sel);
+                                              while( $urole=mysqli_fetch_array($QR)){
+                                            ?>
+                                            <option value="<?php echo $urole['role_id'] ?>"><?php echo $urole['role_name'] ?></option>
+                                            <?php } ?>
+                                            <!-- end -->
                                           </select>
+
                                         </div>
                                       </div>
                                       <div class="row mb-3">

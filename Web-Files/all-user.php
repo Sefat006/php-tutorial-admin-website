@@ -42,7 +42,7 @@
                   <!-- dynamic use of data/fetch -->
                   <?php
                   $i=1;
-                    $sel="SELECT * FROM users ORDER BY user_id DESC";
+                    $sel="SELECT * FROM users NATURAL JOIN roles ORDER BY user_id DESC";
                     $QR=mysqli_query($connect, $sel);
                     while($data=mysqli_fetch_array($QR)){
                   ?>
@@ -53,8 +53,8 @@
                     <td><?php echo $data['user_phone']    ?></td>
                     <td><?php echo $data['user_email']    ?></td>
                     <td><?php echo $data['username']    ?></td>
-                    <td>---</td>
-                    <td><img height="10" class="img200" src="../Uploads/<?php $data=['user_photo']; ?>" alt=""></td>
+                    <td><?php echo $data['role_name'] ?></td>
+                    <td><img height="50" class="img200" src="../Uploads/<?php echo $data['user_photo']; ?>" alt=""></td>
                     <td>
                         <div class="dropdown-group" role="group">
                           <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Manage</button>
