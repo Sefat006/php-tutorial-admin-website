@@ -1,8 +1,18 @@
-<?php
-    require_once "./Function/function.php";
-    get_header();
-    get_sidebar();
+<?php 
+    require_once "../Function/function.php";
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+  </head>
+  <body>
     <div class="login-page bg-light">
         <div class="container">
             <div class="row">
@@ -12,20 +22,50 @@
                         <div class="row">
                             <div class="col-md-7 pe-0">
                                 <div class="form-left h-100 py-5 px-5">
-                                    <form action="" class="row g-4">
+
+                                <?php 
+                                    if(!empty($_POST)){
+                                        $username = $_POST['username'];
+                                        $password = md5($_POST['password']);
+                                        if(!empty($username)){
+                                            if(!empty($password)){
+                                                $sel = "SELECT * FROM users WHERE username='$username' AND user_pw='$password'";
+                                                $QR = mysqli_query($connect, $sel);
+                                                $data = mysqli_fetch_array($QR);
+
+                                                if($data){
+
+                                                    $_SESSION['id']=$data['user_id'];
+                                                    $_SESSION['name']=$data['user_name'];
+                                                    $_SESSION['email']=$data['user_email'];
+                                                    $_SESSION['role']=$data['role_id'];
+
+                                                    header("Location: index.php");
+                                                }else{
+                                                    echo "username or password error";
+                                                }
+                                            }else{
+                                                echo "please enter password";
+                                            }
+                                        }else{
+                                            echo "please enter username";
+                                        }
+                                    }
+                                ?>
+
+                                    <form action="" method="post" class="row g-4">
                                         <div class="col-12">
                                             <label>Username<span class="text-danger">*</span></label>
                                             <div class="input-group">
                                                 <div class="input-group-text"><i class="fas fa-user"></i></div>
-                                                <input type="text" class="form-control" placeholder="Enter Username">
+                                                <input type="text" class="form-control" name="username" placeholder="Enter Username">
                                             </div>
                                         </div>
-
                                         <div class="col-12">
                                             <label>Password<span class="text-danger">*</span></label>
                                             <div class="input-group">
                                                 <div class="input-group-text"><i class="fas fa-lock"></i></div>
-                                                <input type="text" class="form-control" placeholder="Enter Password">
+                                                <input type="password" class="form-control" name="password" placeholder="Enter Password">
                                             </div>
                                         </div>
 
@@ -58,6 +98,7 @@
             </div>
         </div>
     </div>
-<?php 
-    get_footer();
-?>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/custom.js"></script>
+  </body>
+</html>

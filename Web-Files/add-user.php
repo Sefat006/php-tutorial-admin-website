@@ -11,7 +11,11 @@
     $role = $_POST['role'];
     $photo = $_FILES['photo'];
 
-    $photoName = 'User_'.time().'_'.rand(60000,94329430).'.'.pathinfo($photo['name'],PATHINFO_EXTENSION);
+    if($photo['name'] !== ''){
+      $photoName = 'User_'.time().'_'.rand(60000,94329430).'.'.pathinfo($photo['name'],PATHINFO_EXTENSION);
+    }
+
+    
 
     $select = "INSERT INTO users (user_name, user_phone, user_email, username, user_pw, role_id, user_photo) VALUES ('$name','$number','$email','$username','$password', '$role', '$photoName')";
 
@@ -28,7 +32,7 @@
     
   }
 
-
+  needLogged();
   get_header();
   get_sidebar();
 ?>

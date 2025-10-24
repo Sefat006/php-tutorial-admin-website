@@ -1,5 +1,10 @@
 <?php
   require_once "../Function/function.php";
+  needLogged();
+
+  if($_SESSION['role'] == 1)
+  {
+
   get_header();
   get_sidebar();
 
@@ -92,4 +97,7 @@
 
 <?php
     get_footer();
+  }else{
+    echo "access Denied";
+  }
 ?>

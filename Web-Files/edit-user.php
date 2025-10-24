@@ -1,10 +1,6 @@
 <?php 
   require_once "../Function/function.php";
 
-  if (!isset($_GET['e'])) {
-    die("No user selected!");
-}
-
   $id = $_GET['e'];
   $sel = "SELECT * FROM users WHERE user_id='$id'";
   $QR = mysqli_query($connect, $sel);
@@ -15,22 +11,35 @@
     $phone = $_POST['phone'];
     $email = $_POST['email'];
     $role = $_POST['role'];
+    $photo = $_FILES['photo'];
 
     $update = "UPDATE users SET user_name='$name', user_phone='$phone', user_email='$email', role_id='$role' WHERE user_id='$id'";
 
     if(mysqli_query($connect, $update)){
+    if($photo['name'] !== ''){
+      $photoName = 'User_'.time().'_'.rand(60000,94329430).'.'.pathinfo($photo['name'],PATHINFO_EXTENSION);
+      $updating = "UPDATE users SET user_photo='$photoName' WHERE user_id='$id'";
+
+      if(mysqli_query($connect, $updating)){
+        move_uploaded_file($photo['tmp_name'], '../Uploads/'.$photoName);
+        header("Location: all-user.php");
+      }else{
+        echo "image update failed";
+      }
+    }
       // echo "Update successful";
       header("Location: all-user.php");
     }
   }
 
+  needLogged();
   get_header();
   get_sidebar();
 ?>
                     </div>
                     <div class="row">
                         <div class="col-md-12 ">
-                            <form method="post" action="">
+                            <form method="post" action="" enctype="multipart/form-data">
                                 <div class="card mb-3">
                                   <div class="card-header">
                                     <div class="row">
@@ -92,7 +101,7 @@
                                       <div class="row mb-3">
                                         <label class="col-sm-3 col-form-label col_form_label">Photo:</label>
                                         <div class="col-sm-4">
-                                          <input type="file" class="form-control form_control" id="" name="">
+                                          <input type="file" class="form-control form_control" id="" name="photo">
                                         </div>
                                       </div>
                                   </div>

@@ -7,7 +7,7 @@
   $QR = mysqli_query($connect, $sel);
   $info = mysqli_fetch_array($QR);
 
-
+  needLogged();
   get_header();
   get_sidebar();
 
